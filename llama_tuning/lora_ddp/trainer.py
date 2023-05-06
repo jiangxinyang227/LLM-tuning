@@ -246,11 +246,7 @@ if __name__ == "__main__":
     # 读取用户在命令行输入的信息
     os.environ["MASTER_ADDR"] = "localhost"
     os.environ["MASTER_PORT"] = "29500"
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--local_rank', default=0, type=int,
-                        help='node rank for distributed training')
-    args = parser.parse_args()
-    local_rank = args.local_rank
+    local_rank = int(os.environ["LOCAL_RANK"])
 
     print("local_rank: ", local_rank)
 
