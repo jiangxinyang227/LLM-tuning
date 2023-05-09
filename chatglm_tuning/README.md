@@ -10,6 +10,7 @@
 #### lora_deepspeed
     deepspeed 的 zero-3 + cpu offload微调，可以在多张GPU显存更小卡上微调，
     经测试在2张A100上单张卡得显存最少只占用5G多一点。
+     deepspeed在使用时有一些要注意的问题，详情见lora_deepspeed/README.md
 #### lora_fsdp
     pytorch fsdp 的 zero-3，由于使用的chatglm-6b是float16和float32混合的权重类型，
     暂时fsdp不支持混合类型的模型加载和分片。所以无法运行，只提供代码的参考。
