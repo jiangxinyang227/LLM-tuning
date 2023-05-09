@@ -236,14 +236,6 @@ class Trainer:
                     self.accelerator.wait_for_everyone()
                     self.model.train()
 
-                # if current_step % (self.checkpoint_every * self.accu_steps) == 0:
-                #     device_id = str(self.accelerator.device).split(":")[1]
-                #     lora_model_path = self.lora_model + "/" + str(current_step // self.accu_steps) + "/" + device_id
-                #     if not os.path.exists(lora_model_path):
-                #         os.makedirs(lora_model_path)
-                #     self.model.module.save_lora_model(lora_model_path)
-                #     self.accelerator.wait_for_everyone()
-
                 current_step += 1
 
                 if (current_step // self.accu_steps) > self.train_steps:
@@ -256,15 +248,12 @@ class Trainer:
 
         # 保存模型
         self.accelerator.wait_for_everyone()
-        if self.accelerator.is_main_process:
-            lora_model_path = self.lora_model + "/" + str(current_step // self.accu_steps)
-
-            self.model.module.peft_model.save_pretrained(
-                lora_model_path,
-                is_main_process=self.accelerator.is_main_process,
-                save_function=self.accelerator.save,
-                state_dict=self.accelerator.get_state_dict(self.model)
-            )
+        self.model.module.peft_model.save_pretrained(
+            self.lora_model,
+            is_main_process=self.accelerator.is_main_process,
+            save_function=self.accelerator.save,
+            state_dict=self.accelerator.get_state_dict(self.model)
+        )
         print("model save done")
 
 
