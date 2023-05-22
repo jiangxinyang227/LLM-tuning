@@ -9,3 +9,5 @@
     chatglm-6b的微调
 #### llama_tuning
     llama-7b的微调
+#### rlhf_tuning
+基于[DeepSpeed-Chat](https://github.com/microsoft/DeepSpeedExamples/tree/master/applications/DeepSpeed-Chat)框架在bloom上的微调。
